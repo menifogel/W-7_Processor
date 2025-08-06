@@ -1,0 +1,9 @@
+Flask
+flask-cors
+python-dotenv
+pandas
+openpyxl
+openai==0.28.1
+Werkzeug
+reportlab
+PyMuPDF

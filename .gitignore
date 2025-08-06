@@ -1,0 +1,13 @@
+# node
+client/node_modules/
+
+# python
+server/venv/
+server/__pycache__/
+*.pyc
+.env
+
+# vscode
+.vscode/
+node_modules/
+dist/

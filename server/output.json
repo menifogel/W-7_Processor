@@ -1,0 +1,367 @@
+{
+  "Application type": [
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_1[0]",
+      "label": "Apply for a new ITIN"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_1[1]",
+      "label": "Renew an existing ITIN"
+    }
+  ],
+  "Reason you’re submitting Form W-7": [
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_2[0]",
+      "label": "Nonresident alien required to get an ITIN to claim tax treaty benefit (you must also check and complete box h (see instructions))"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_3[0]",
+      "label": "b: Nonresident alien filing a U.S. federal tax return"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_4[0]",
+      "label": "c: U.S. resident alien (based on days present in the United States) filing a U.S. federal tax return"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_5[0]",
+      "label": "d: Dependent of U.S. citizen/resident alien"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_01[0]",
+      "label": "If d, enter relationship to U.S. citizen/resident alien (see instructions)"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_6[0]",
+      "label": "e: Spouse of U.S. citizen/resident alien"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_02[0]",
+      "label": "If d or e, enter name and SSN/ITIN of U.S. citizen/resident alien (see instructions)"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_03[0]",
+      "label": "If d or e, enter name and SSN/ITIN of U.S. citizen/resident alien (see instructions)"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_7[0]",
+      "label": "f: Nonresident alien student, professor, or researcher filing a U.S. federal tax return or claiming an exception (if claiming an exception, you must also check and complete box h (see instructions))"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_8[0]",
+      "label": "g: Dependent/spouse of a nonresident alien holding a U.S. visa"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_9[0]",
+      "label": "h: Other (see instructions)"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_04[0]",
+      "label": "h Other (see instructions)"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_05[0]",
+      "label": "Additional information for a and f: Enter treaty country"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_06[0]",
+      "label": "Additional information for a and f: Additional information for a and f: Enter treaty country"
+    }
+  ],
+  "1a: name": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_07[0]",
+      "label": "First name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_08[0]",
+      "label": "Middle name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_09[0]",
+      "label": "Last name"
+    }
+  ],
+  "1b: Name at birth if different": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_10[0]",
+      "label": "First name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_11[0]",
+      "label": "Middle name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_12[0]",
+      "label": "Last name"
+    }
+  ],
+  "2: Applicant’s Mailing Address": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_13[0]",
+      "label": "Street address, apartment number, or rural route number. If you have a P.O. box, see separate instructions."
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_14[0]",
+      "label": "City or town, state or province, and country. Include ZIP code or postal code where appropriate."
+    }
+  ],
+  "3: Foreign (non-U.S.) Address": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_15[0]",
+      "label": "Street address, apartment number, or rural route number. Don’t use a P.O. box number."
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_16[0]",
+      "label": "City or town, state or province, and country. Include postal code where appropriate."
+    }
+  ],
+  "4: Birth Information": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].Line4_ReadOrder[0].f1_17[0]",
+      "label": "Date of birth (month / day / year)"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_18[0]",
+      "label": "Country of birth"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_19[0]",
+      "label": "City and state or province (optional)"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_10[0]",
+      "label": "5: Male"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_10[1]",
+      "label": "5: Female"
+    }
+  ],
+  "Other Information": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_20[0]",
+      "label": "6a: Country(ies) of citizenship"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_21[0]",
+      "label": "6b: Foreign tax I.D. number (if any)"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_22[0]",
+      "label": "6c: Type of U.S. visa (if any), number, and expiration date"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_11[0]",
+      "label": "6d: Identification document(s) submitted : Passport"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_11[1]",
+      "label": "6d: Identification document(s) submitted : Driver’s license/State I.D."
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_11[2]",
+      "label": "6d: Identification document(s) submitted : USCIS documentation"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_11[3]",
+      "label": "6d: Identification document(s) submitted :Other : CheckBox"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_23[0]",
+      "label": "6d: Identification document(s) submitted :Other: EditBox"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].Issued_ReadOrder[0].f1_24[0]",
+      "label": "6d: Issued by:"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].Issued_ReadOrder[0].f1_25[0]",
+      "label": "6d: Number:"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].Issued_ReadOrder[0].f1_26[0]",
+      "label": "6d: Exp. date:"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_27[0]",
+      "label": "6d: Date of entry into the United States (MM/DD/YYYY):"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_12[0]",
+      "label": "6e: Have you previously received an ITIN or an Internal Revenue Service Number (IRSN)? : No/Don’t know. Skip line 6f."
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_12[1]",
+      "label": "6e: Have you previously received an ITIN or an Internal Revenue Service Number (IRSN)? : Yes. Complete line 6f. If more than one, list on a sheet and attach to this form."
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].ITIN[0].f1_28[0]",
+      "label": "6f: Enter ITIN and/or IRSN: ITIN :first 3 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].ITIN[0].f1_29[0]",
+      "label": "6f: Enter ITIN and/or IRSN: ITIN : middle 2 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].ITIN[0].f1_30[0]",
+      "label": "6f: Enter ITIN and/or IRSN: ITIN : last 3 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].IRSN[0].f1_31[0]",
+      "label": "6f: Enter ITIN and/or IRSN: IRSN :first 3 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].IRSN[0].f1_32[0]",
+      "label": "6f: Enter ITIN and/or IRSN: IRSN :middle 2 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].IRSN[0].f1_33[0]",
+      "label": "6f: Enter ITIN and/or IRSN: IRSN :last 3 numbers"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_34[0]",
+      "label": "6f: and name under which it was issued: First name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_35[0]",
+      "label": "6f: and name under which it was issued: Middle name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_36[0]",
+      "label": "6f: and name under which it was issued: Last name"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_37[0]",
+      "label": "6g: Name of college/university or company"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_38[0]",
+      "label": "6g: City and state"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_39[0]",
+      "label": "6g: Length of stay"
+    }
+  ],
+  "Sign Here": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_40[0]",
+      "label": "Phone number"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_41[0]",
+      "label": "Name of delegate, if applicable"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_13[0]",
+      "label": "Delegate’s relationship to applicant: Parent"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_13[1]",
+      "label": "Delegate’s relationship to applicant: Power of attorney"
+    },
+    {
+      "Type": "CheckBox",
+      "FieldName": "topmostSubform[0].Page1[0].c1_13[2]",
+      "label": "Delegate’s relationship to applicant: Court-appointed guardian"
+    }
+  ],
+  "Acceptance Agent’s Use ONLY": [
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_42[0]",
+      "label": "Phone"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_43[0]",
+      "label": "Fax"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_44[0]",
+      "label": "Name and title"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_45[0]",
+      "label": "Name of company"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_46[0]",
+      "label": "EIN"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_47[0]",
+      "label": "PTIN"
+    },
+    {
+      "Type": "EditBox",
+      "FieldName": "topmostSubform[0].Page1[0].f1_48[0]",
+      "label": "Office code"
+    }
+  ]
+}
