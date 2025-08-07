@@ -99,6 +99,8 @@ class W7FormFiller:
 class W7FormProcessor:
     def __init__(self):
         self.form_data = {}
+        self.excel_data = None  # Store full Excel data
+        self.client_list = []   # Store list of available clients
         self.w7_template_path = "w7.pdf"  # Your local W-7 PDF file
         self.filled_pdf_path = None
         self.create_w7_field_mapping()
@@ -172,25 +174,81 @@ class W7FormProcessor:
         }
         
     def process_excel_data(self, file_path):
-        """Read and extract data from Excel file"""
+        """Read and extract data from Excel file - now handles multiple clients"""
         try:
             df = pd.read_excel(file_path)
             if df.empty:
                 return None
                 
-            # Get first row data (assuming one person per file)
-            first_row = df.iloc[0].to_dict()
+            # Store the full dataframe for later client selection
+            self.excel_data = df
+            
+            # Create a list of available clients
+            self.client_list = []
+            
+            # Try to find name columns (handle various naming conventions)
+            first_name_cols = [col for col in df.columns if 'first' in col.lower() and 'name' in col.lower()]
+            last_name_cols = [col for col in df.columns if 'last' in col.lower() and 'name' in col.lower()]
+            
+            if not first_name_cols or not last_name_cols:
+                # Fallback: try to find any column with "name" 
+                name_cols = [col for col in df.columns if 'name' in col.lower()]
+                print(f"Available columns with 'name': {name_cols}")
+                return None
+                
+            first_name_col = first_name_cols[0]
+            last_name_col = last_name_cols[0]
+            
+            # Extract client names
+            for idx, row in df.iterrows():
+                first_name = str(row[first_name_col]).strip() if pd.notna(row[first_name_col]) else ""
+                last_name = str(row[last_name_col]).strip() if pd.notna(row[last_name_col]) else ""
+                
+                if first_name and last_name:  # Only add if both names exist
+                    self.client_list.append({
+                        'first_name': first_name,
+                        'last_name': last_name,
+                        'full_name': f"{first_name} {last_name}",
+                        'row_index': idx
+                    })
+            
+            print(f"Found {len(self.client_list)} clients in Excel file")
+            return self.client_list
+            
+        except Exception as e:
+            print(f"Error processing Excel: {e}")
+            return None
+    
+    def get_client_data(self, first_name, last_name):
+        """Get data for a specific client by name"""
+        try:
+            if self.excel_data is None:
+                return None
+                
+            # Find the matching client
+            matching_client = None
+            for client in self.client_list:
+                if (client['first_name'].lower() == first_name.lower() and 
+                    client['last_name'].lower() == last_name.lower()):
+                    matching_client = client
+                    break
+            
+            if not matching_client:
+                return None
+                
+            # Get the row data for this client
+            row_data = self.excel_data.iloc[matching_client['row_index']].to_dict()
             
             # Clean and standardize column names
             cleaned_data = {}
-            for key, value in first_row.items():
-                clean_key = str(key).strip().lower().replace(' ', '_')
+            for key, value in row_data.items():
+                clean_key = str(key).strip().lower().replace(' ', '_').replace('/', '_')
                 cleaned_data[clean_key] = str(value) if pd.notna(value) else ""
                 
             return cleaned_data
             
         except Exception as e:
-            print(f"Error processing Excel: {e}")
+            print(f"Error getting client data: {e}")
             return None
     
     def create_gpt_prompt(self, excel_data):
@@ -400,7 +458,7 @@ processor = W7FormProcessor()
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
-    """Handle file upload and process with OpenAI"""
+    """Handle file upload and return list of available clients"""
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No file uploaded'}), 400
@@ -416,13 +474,45 @@ def upload_file():
         temp_path = tempfile.mktemp(suffix='.xlsx')
         file.save(temp_path)
         
-        # Process Excel data
-        excel_data = processor.process_excel_data(temp_path)
-        if not excel_data:
-            return jsonify({'error': 'Failed to process Excel file'}), 400
+        # Process Excel data to get list of clients
+        client_list = processor.process_excel_data(temp_path)
+        if not client_list:
+            return jsonify({'error': 'Failed to process Excel file or no clients found'}), 400
+        
+        # Clean up temporary file
+        os.unlink(temp_path)
+        
+        return jsonify({
+            'success': True,
+            'client_list': client_list,
+            'total_clients': len(client_list),
+            'message': f'File processed successfully. Found {len(client_list)} clients.'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Server error: {str(e)}'}), 500
+
+@app.route('/api/process-client', methods=['POST'])
+def process_client():
+    """Process a specific client by name and generate form data"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No JSON data provided'}), 400
+            
+        first_name = data.get('first_name', '').strip()
+        last_name = data.get('last_name', '').strip()
+        
+        if not first_name or not last_name:
+            return jsonify({'error': 'Both first_name and last_name are required'}), 400
+        
+        # Get client data
+        client_data = processor.get_client_data(first_name, last_name)
+        if not client_data:
+            return jsonify({'error': f'Client "{first_name} {last_name}" not found'}), 404
         
         # Create GPT prompt
-        system_prompt, user_prompt = processor.create_gpt_prompt(excel_data)
+        system_prompt, user_prompt = processor.create_gpt_prompt(client_data)
         
         # Call OpenAI API
         gpt_response = processor.call_openai_api(system_prompt, user_prompt)
@@ -432,14 +522,12 @@ def upload_file():
         # Store form data in session/memory
         processor.form_data = gpt_response
         
-        # Clean up temporary file
-        os.unlink(temp_path)
-        
         return jsonify({
             'success': True,
-            'excel_data': excel_data,
+            'client_name': f'{first_name} {last_name}',
+            'excel_data': client_data,
             'mapped_data': gpt_response,
-            'message': 'File processed successfully'
+            'message': 'Client processed successfully'
         })
         
     except Exception as e:
@@ -450,7 +538,7 @@ def generate_pdf():
     """Generate W-7 PDF with form data"""
     try:
         if not processor.form_data:
-            return jsonify({'error': 'No form data available. Please upload a file first.'}), 400
+            return jsonify({'error': 'No form data available. Please process a client first.'}), 400
         
         # Fill the PDF
         pdf_path = processor.fill_w7_pdf(processor.form_data)
@@ -491,6 +579,8 @@ def debug_form():
             'template_exists': os.path.exists(processor.w7_template_path),
             'field_mapping_count': len(processor.field_mapping),
             'sample_field_mapping': dict(list(processor.field_mapping.items())[:10]),
+            'clients_loaded': len(processor.client_list) if processor.client_list else 0,
+            'excel_data_loaded': processor.excel_data is not None
         }
         
         # Try to open PDF and get field information
