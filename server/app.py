@@ -406,7 +406,7 @@ class W7FormProcessor:
         """Call OpenAI API to process the data"""
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-5",
+                model="gpt-4",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
