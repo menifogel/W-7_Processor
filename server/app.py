@@ -122,6 +122,14 @@ class W7FormProcessor:
             'reason_g': 'topmostSubform[0].Page1[0].c1_8[0]',  # Dependent/spouse of nonresident
             'reason_h': 'topmostSubform[0].Page1[0].c1_9[0]',  # Other
             
+            # Additional reason fields
+            'reason_d_relationship': 'topmostSubform[0].Page1[0].f1_01[0]',
+            'reason_de_name1': 'topmostSubform[0].Page1[0].f1_02[0]',  # Name field 1 for d/e
+            'reason_de_name2': 'topmostSubform[0].Page1[0].f1_03[0]',  # Name field 2 for d/e
+            'reason_h_other': 'topmostSubform[0].Page1[0].f1_04[0]',
+            'treaty_country1': 'topmostSubform[0].Page1[0].f1_05[0]',
+            'treaty_country2': 'topmostSubform[0].Page1[0].f1_06[0]',
+            
             # Name fields
             'first_name': 'topmostSubform[0].Page1[0].f1_07[0]',
             'middle_name': 'topmostSubform[0].Page1[0].f1_08[0]',
@@ -165,12 +173,41 @@ class W7FormProcessor:
             'doc_expiration': 'topmostSubform[0].Page1[0].Issued_ReadOrder[0].f1_26[0]',
             'date_of_entry': 'topmostSubform[0].Page1[0].f1_27[0]',
             
-            # Previous ITIN
-            'previous_itin_no': 'topmostSubform[0].Page1[0].c1_12[0]',
-            'previous_itin_yes': 'topmostSubform[0].Page1[0].c1_12[1]',
+            # 6e: Previous ITIN question (FIXED AND COMPLETE)
+            'previous_itin_no': 'topmostSubform[0].Page1[0].c1_12[0]',      # No/Don't know
+            'previous_itin_yes': 'topmostSubform[0].Page1[0].c1_12[1]',     # Yes
             
-            # Contact
+            # 6f: Previous ITIN/IRSN details (ADDED MISSING FIELDS)
+            'previous_itin_first_3': 'topmostSubform[0].Page1[0].ITIN[0].f1_28[0]',     # ITIN first 3 digits
+            'previous_itin_middle_2': 'topmostSubform[0].Page1[0].ITIN[0].f1_29[0]',    # ITIN middle 2 digits
+            'previous_itin_last_3': 'topmostSubform[0].Page1[0].ITIN[0].f1_30[0]',      # ITIN last 3 digits
+            'previous_irsn_first_3': 'topmostSubform[0].Page1[0].IRSN[0].f1_31[0]',     # IRSN first 3 digits
+            'previous_irsn_middle_2': 'topmostSubform[0].Page1[0].IRSN[0].f1_32[0]',    # IRSN middle 2 digits
+            'previous_irsn_last_3': 'topmostSubform[0].Page1[0].IRSN[0].f1_33[0]',      # IRSN last 3 digits
+            'previous_itin_name_first': 'topmostSubform[0].Page1[0].f1_34[0]',          # Name under which ITIN was issued - First
+            'previous_itin_name_middle': 'topmostSubform[0].Page1[0].f1_35[0]',         # Name under which ITIN was issued - Middle
+            'previous_itin_name_last': 'topmostSubform[0].Page1[0].f1_36[0]',           # Name under which ITIN was issued - Last
+            
+            # 6g: College/University or Company info (ADDED MISSING FIELDS)
+            'college_company_name': 'topmostSubform[0].Page1[0].f1_37[0]',              # Name of college/university or company
+            'college_company_city_state': 'topmostSubform[0].Page1[0].f1_38[0]',        # City and state
+            'length_of_stay': 'topmostSubform[0].Page1[0].f1_39[0]',                    # Length of stay
+            
+            # Contact and signature section
             'phone_number': 'topmostSubform[0].Page1[0].f1_40[0]',
+            'delegate_name': 'topmostSubform[0].Page1[0].f1_41[0]',
+            'delegate_parent': 'topmostSubform[0].Page1[0].c1_13[0]',
+            'delegate_power_attorney': 'topmostSubform[0].Page1[0].c1_13[1]',
+            'delegate_court_guardian': 'topmostSubform[0].Page1[0].c1_13[2]',
+            
+            # Acceptance Agent section
+            'agent_phone': 'topmostSubform[0].Page1[0].f1_42[0]',
+            'agent_fax': 'topmostSubform[0].Page1[0].f1_43[0]',
+            'agent_name_title': 'topmostSubform[0].Page1[0].f1_44[0]',
+            'agent_company': 'topmostSubform[0].Page1[0].f1_45[0]',
+            'agent_ein': 'topmostSubform[0].Page1[0].f1_46[0]',
+            'agent_ptin': 'topmostSubform[0].Page1[0].f1_47[0]',
+            'agent_office_code': 'topmostSubform[0].Page1[0].f1_48[0]',
         }
         
     def process_excel_data(self, file_path):
@@ -295,14 +332,49 @@ class W7FormProcessor:
         - id_uscis: true if using USCIS document
         - id_other: true if using other document type
         
+        IMPORTANT: Previous ITIN/IRSN Information (Section 6e/6f):
+        - previous_itin_no: true if person has NOT previously received ITIN/IRSN
+        - previous_itin_yes: true if person HAS previously received ITIN/IRSN
+        
+        If previous_itin_yes is true, you MUST also fill these fields:
+        - previous_itin_first_3: First 3 digits of previous ITIN (e.g., "900")
+        - previous_itin_middle_2: Middle 2 digits of previous ITIN (e.g., "70")  
+        - previous_itin_last_3: Last 3 digits of previous ITIN (e.g., "1234")
+        - previous_itin_name_first: First name under which ITIN was issued
+        - previous_itin_name_middle: Middle name under which ITIN was issued  
+        - previous_itin_name_last: Last name under which ITIN was issued
+        
+        For IRSN (if applicable):
+        - previous_irsn_first_3, previous_irsn_middle_2, previous_irsn_last_3: IRSN number parts
+        
+        College/University Information (Section 6g - for students/researchers):
+        - college_company_name: Name of educational institution or company
+        - college_company_city_state: City and state of institution
+        - length_of_stay: Duration of stay (e.g., "2 years", "Fall 2023 - Spring 2024")
+        
+        CRITICAL INSTRUCTION FOR ITIN PROCESSING:
+        - Look for any column that contains "ITIN", "itin", "tax_id", "previous_itin", or similar
+        - If you find an ITIN number, parse it carefully:
+        * Format is typically XXX-XX-XXXX (9 digits total)
+        * Split into: first_3 (XXX), middle_2 (XX), last_3 (XXXX)
+        * Set previous_itin_yes = true
+        * Set previous_itin_no = false
+        - If no ITIN found or ITIN field is empty, set previous_itin_no = true and previous_itin_yes = false
+        
         CRITICAL: Your response must contain ONLY a valid JSON object. Do not include any explanatory text, markdown formatting, or additional commentary. Return ONLY the JSON object with the mapped fields."""
         
         user_prompt = f"""Map this Excel data to W-7 form fields:
         {json.dumps(excel_data, indent=2)}
         
-        IMPORTANT: Respond with ONLY a JSON object. Do not include any explanatory text or markdown formatting. 
+        IMPORTANT: Respond with ONLY a JSON object. Do not include any explanatory text or markdown formatting.
         
-        Required JSON format:
+        Pay special attention to:
+        1. Any ITIN-related data in the Excel - if found, make sure to set previous_itin_yes=true and fill the ITIN number fields
+        2. Educational institution information for students/researchers  
+        3. Proper date formatting for date_of_birth (MMDDYYYY)
+        4. Gender field mapping (set either gender_male or gender_female to true)
+        
+        Required JSON format example:
         {{
             "first_name": "string",
             "middle_name": "string", 
@@ -317,7 +389,15 @@ class W7FormProcessor:
             "application_type_new": boolean,
             "reason_b": boolean,
             "id_passport": boolean,
-            "phone_number": "string"
+            "phone_number": "string",
+            "previous_itin_yes": boolean,
+            "previous_itin_no": boolean,
+            "previous_itin_first_3": "string",
+            "previous_itin_middle_2": "string", 
+            "previous_itin_last_3": "string",
+            "previous_itin_name_first": "string",
+            "previous_itin_name_middle": "string",
+            "previous_itin_name_last": "string"
         }}"""
         
         return system_prompt, user_prompt
@@ -326,7 +406,7 @@ class W7FormProcessor:
         """Call OpenAI API to process the data"""
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
